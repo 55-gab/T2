@@ -1,0 +1,124 @@
+package Tarea2;
+import java.util.Scanner;
+
+public class Notas {
+	
+	public static double promedioCurso(double definitiva[]) { 
+		double suma = 0; 
+		
+		for (int i = 0; i < definitiva.length; i++) {
+			
+			suma = suma + definitiva[i];
+		} 
+		
+		return suma / definitiva.length;
+	}
+	
+	
+
+    public static double calcularDefinitiva(double nota1, double nota2, double nota3) {
+
+        double definitiva;
+
+        definitiva = nota1 * 0.30 + nota2 * 0.30 + nota3 * 0.40;
+
+        return definitiva;
+    }
+
+
+	public static void main(String[] args) {
+		
+		Scanner Teclado = new Scanner(System.in);
+
+        int n;
+        
+        
+
+        System.out.print("¿Cuántos estudiantes tiene el curso? ");
+        n = Teclado.nextInt();
+
+        String nombres[] = new String[n];
+        double nota1[] = new double[n];
+        double nota2[] = new double[n];
+        double nota3[] = new double[n];
+        double definitiva[] = new double[n];
+        
+
+        for (int i = 0; i < n; i++) {
+
+            System.out.println("\nEstudiante " + (i + 1));
+
+            System.out.print("Ingrese el nombre: ");
+            nombres[i] = Teclado.next();
+
+            System.out.print("Digite la primera nota: ");
+            nota1[i] = Teclado.nextDouble();
+
+            System.out.print("Digite la segunda nota: ");
+            nota2[i] = Teclado.nextDouble();
+
+            System.out.print("Digite la tercera nota: ");
+            nota3[i] = Teclado.nextDouble();
+            
+            definitiva[i] = calcularDefinitiva(nota1[i], nota2[i], nota3[i]);
+        }
+
+        System.out.println("\nDatos ingresados:");
+
+        System.out.println("\n°~°~°~°~° RESULTADOS °~°~°~°~°");
+
+        for (int i = 0; i < n; i++) {
+
+            if (definitiva[i] < 3.0) {
+                System.out.println(nombres[i] + " -> N1 (" 
+                        + nota1[i] + ") N2 (" 
+                        + nota2[i] + ") N3 (" 
+                        + nota3[i] + ")"
+                        + " promedio = " + definitiva[i] 
+                        + ", PIERDE");
+            } else {
+                System.out.println(nombres[i] + " -> N1 (" 
+                        + nota1[i] + ") N2 (" 
+                        + nota2[i] + ") N3 (" 
+                        + nota3[i] + ")"
+                        + " promedio = " + definitiva[i] 
+                        + ", APRUEBA");
+            }
+        }
+        
+        double promedio = promedioCurso(definitiva);
+        
+        System.out.println("\nPromedio general del curso: " + promedio);
+        
+        String respuesta;
+        
+        System.out.println("¿Desea subir el promedio de algún estudiante?");
+        respuesta = Teclado.next();
+
+        while (respuesta.equals("si")) {
+
+            String buscarnombre;
+
+            System.out.println("Ingrese el nombre del estudiante");
+            buscarnombre = Teclado.next();
+
+            for (int i = 0; i < n; i++) {
+
+                if (nombres[i].equals(buscarnombre)) {
+
+                    System.out.println("Estudiante encontrado: " + nombres[i]);
+                    System.out.println("Su definitiva es: " + definitiva[i]);
+
+                    definitiva[i] = definitiva[i] * 1.10;
+
+                    System.out.println("Su nueva definitiva es: " + definitiva[i]);
+                }
+            }
+
+            System.out.println("\n¿Desea subir el promedio de otro estudiante? (si/no)");
+            respuesta = Teclado.next();
+        }
+               
+
+	}        
+}
